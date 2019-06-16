@@ -19,20 +19,20 @@ module.exports = function (app) {
   });
 
   function checkForMatch(friendObj) {
-    var compVals = 0;
     var match = {
       name: "",
       photo: "",
       score: ""
     };
-    minVals = 40;
+
+    // Initialize value to check for cosmic closeness
+    var minVals = 100000;
     friendData.forEach(function (elem) {
+      var compVals = 0;
       elem.scores.forEach(function (score, index) {
         compVals = parseInt(compVals) + Math.abs(parseInt(score) - parseInt(friendObj.scores[index]));
       });
       if (compVals < minVals) {
-        console.log("Min");
-        console.log(elem);
         match.name = elem.name;
         match.photo = elem.photo;
         match.score = compVals;

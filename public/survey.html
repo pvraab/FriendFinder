@@ -90,7 +90,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button2" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button2" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu2">
@@ -111,7 +111,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button3" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button3" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu3">
@@ -132,7 +132,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button4" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button4" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu4">
@@ -153,7 +153,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button5" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button5" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu5">
@@ -174,7 +174,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button6" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button6" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu6">
@@ -195,7 +195,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button7" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button7" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu7">
@@ -216,7 +216,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button8" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button8" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu8">
@@ -237,7 +237,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button9" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button9" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu9">
@@ -258,7 +258,7 @@
               </div>
               <div class="form-group row">
                 <div class="dropdown">
-                  <button type="button" class="btn btn-primary dropdown-toggle"  id="button10" data-toggle="dropdown">
+                  <button type="button" class="btn btn-primary dropdown-toggle" id="button10" data-toggle="dropdown">
                     Select Option
                   </button>
                   <div class="dropdown-menu" id="dropdown-menu10">
@@ -275,6 +275,29 @@
 
             </form>
 
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Match Modal -->
+    <div id="match-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Match-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"></button>
+            <h2 class="modal-title"><strong>Your Closest Friend</strong></h2>
+          </div>
+          <div class="modal-body">
+            <h2 id="match-name"></h2>
+            <h2 id="match-score"></h2>
+            <img id="match-photo" src="" alt="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 
@@ -335,8 +358,13 @@
         $.post("/api/friends",
           friendData,
           function (data) {
-            console.log(data.name);
-            console.log(data.photo);
+            $("#match-name").text(data.name);
+            $("#match-score").text(data.score);
+            $("#match-photo").text(data.photo);
+
+            // Display match in modal
+            $("#match-modal").modal("toggle");
+
           });
       } else {
         alert("Missing answer " + test.index);
