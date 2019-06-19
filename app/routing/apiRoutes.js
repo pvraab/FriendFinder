@@ -1,4 +1,4 @@
-var friendData = require("../data/friendData");
+var friendData = require("../data/friends");
 
 // Routing
 module.exports = function (app) {
@@ -15,10 +15,16 @@ module.exports = function (app) {
     console.log("Post");
     console.log(match);
     friendData.push(req.body);
+    match = JSON.stringify(match);
     res.json(match);
   });
 
+  // Check for a friend match
+  // Compute difference function for answers and use the 
+  // first absolute minimum difference
   function checkForMatch(friendObj) {
+
+    // Initialize match object
     var match = {
       name: "",
       photo: "",
@@ -27,11 +33,17 @@ module.exports = function (app) {
 
     // Initialize value to check for cosmic closeness
     var minVals = 100000;
+
+    // Loop through all possible friends
     friendData.forEach(function (elem) {
       var compVals = 0;
+
+      // Compare all possible friends with this one
       elem.scores.forEach(function (score, index) {
         compVals = parseInt(compVals) + Math.abs(parseInt(score) - parseInt(friendObj.scores[index]));
       });
+
+      // If current minimum, save it
       if (compVals < minVals) {
         match.name = elem.name;
         match.photo = elem.photo;
@@ -39,15 +51,9 @@ module.exports = function (app) {
         minVals = compVals;
       }
     });
+
+    // Return best match
     return match;
   };
 
-  // Clear friend data
-  app.post("/api/clear", function (req, res) {
-    // Empty out the arrays of data
-    friendData.length = 0;
-    res.json({
-      ok: true
-    });
-  });
 };

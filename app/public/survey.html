@@ -37,7 +37,7 @@
     <div class="row">
       <div class="col-lg-12">
 
-        <!-- Survey -->
+        <!-- Survey Form -->
         <div class="card">
           <div class="card-header">
             <h4>Take A Survey</h4>
@@ -55,7 +55,7 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm" for="friend-photo">Photo</label>
+                <label class="col-sm-3 col-form-label col-form-label-sm" for="friend-photo">Photo URL</label>
                 <div class="col-sm-9">
                   <input type="text" class="form-control form-control-sm" id="friend-photo">
                 </div>
@@ -294,7 +294,7 @@
           <div class="modal-body">
             <h2 id="match-name"></h2>
             <h2 id="match-score"></h2>
-            <img id="match-photo" src="" alt="">
+            <img id="match-photo" src="" alt="" width=200 height=200>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -306,7 +306,7 @@
 
     <footer class="footer mt-4">
       <div class="container">
-        <p><a href="#" id="clear">Clear Friends</a> | <a href="/api/friends">API Friends List</a>
+        <p><a href="/api/friends">API Friends List</a>
       </div>
     </footer>
 
@@ -358,9 +358,11 @@
         $.post("/api/friends",
           friendData,
           function (data) {
+            data = JSON.parse(data);
             $("#match-name").text(data.name);
             $("#match-score").text(data.score);
-            $("#match-photo").text(data.photo);
+            $("#match-photo").attr("src",data.photo);
+            $("#match-photo").attr("alt",data.photo);
 
             // Display match in modal
             $("#match-modal").modal("toggle");
